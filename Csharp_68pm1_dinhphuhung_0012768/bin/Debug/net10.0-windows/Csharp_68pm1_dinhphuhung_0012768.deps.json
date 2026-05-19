@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "Csharp_68pm1_dinhphuhung_0012768/1.0.0": {
+        "runtime": {
+          "Csharp_68pm1_dinhphuhung_0012768.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Csharp_68pm1_dinhphuhung_0012768/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

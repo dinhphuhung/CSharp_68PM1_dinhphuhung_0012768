@@ -1,0 +1,16 @@
+C:\Users\Admin\source\repos\Csharp_68pm1_dinhphuhung_0012768\Csharp_68pm1_dinhphuhung_0012768\bin\Debug\net10.0-windows\Csharp_68pm1_dinhphuhung_0012768.exe
+C:\Users\Admin\source\repos\Csharp_68pm1_dinhphuhung_0012768\Csharp_68pm1_dinhphuhung_0012768\bin\Debug\net10.0-windows\Csharp_68pm1_dinhphuhung_0012768.deps.json
+C:\Users\Admin\source\repos\Csharp_68pm1_dinhphuhung_0012768\Csharp_68pm1_dinhphuhung_0012768\bin\Debug\net10.0-windows\Csharp_68pm1_dinhphuhung_0012768.runtimeconfig.json
+C:\Users\Admin\source\repos\Csharp_68pm1_dinhphuhung_0012768\Csharp_68pm1_dinhphuhung_0012768\bin\Debug\net10.0-windows\Csharp_68pm1_dinhphuhung_0012768.dll
+C:\Users\Admin\source\repos\Csharp_68pm1_dinhphuhung_0012768\Csharp_68pm1_dinhphuhung_0012768\bin\Debug\net10.0-windows\Csharp_68pm1_dinhphuhung_0012768.pdb
+C:\Users\Admin\source\repos\Csharp_68pm1_dinhphuhung_0012768\Csharp_68pm1_dinhphuhung_0012768\obj\Debug\net10.0-windows\Csharp_68pm1_dinhphuhung_0012768.Form1.resources
+C:\Users\Admin\source\repos\Csharp_68pm1_dinhphuhung_0012768\Csharp_68pm1_dinhphuhung_0012768\obj\Debug\net10.0-windows\Csharp_68pm1_dinhphuhung_0012768.csproj.GenerateResource.cache
+C:\Users\Admin\source\repos\Csharp_68pm1_dinhphuhung_0012768\Csharp_68pm1_dinhphuhung_0012768\obj\Debug\net10.0-windows\Csharp_68pm1_dinhphuhung_0012768.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Admin\source\repos\Csharp_68pm1_dinhphuhung_0012768\Csharp_68pm1_dinhphuhung_0012768\obj\Debug\net10.0-windows\Csharp_68pm1_dinhphuhung_0012768.AssemblyInfoInputs.cache
+C:\Users\Admin\source\repos\Csharp_68pm1_dinhphuhung_0012768\Csharp_68pm1_dinhphuhung_0012768\obj\Debug\net10.0-windows\Csharp_68pm1_dinhphuhung_0012768.AssemblyInfo.cs
+C:\Users\Admin\source\repos\Csharp_68pm1_dinhphuhung_0012768\Csharp_68pm1_dinhphuhung_0012768\obj\Debug\net10.0-windows\Csharp_68pm1_dinhphuhung_0012768.csproj.CoreCompileInputs.cache
+C:\Users\Admin\source\repos\Csharp_68pm1_dinhphuhung_0012768\Csharp_68pm1_dinhphuhung_0012768\obj\Debug\net10.0-windows\Csharp_68pm1_dinhphuhung_0012768.dll
+C:\Users\Admin\source\repos\Csharp_68pm1_dinhphuhung_0012768\Csharp_68pm1_dinhphuhung_0012768\obj\Debug\net10.0-windows\refint\Csharp_68pm1_dinhphuhung_0012768.dll
+C:\Users\Admin\source\repos\Csharp_68pm1_dinhphuhung_0012768\Csharp_68pm1_dinhphuhung_0012768\obj\Debug\net10.0-windows\Csharp_68pm1_dinhphuhung_0012768.pdb
+C:\Users\Admin\source\repos\Csharp_68pm1_dinhphuhung_0012768\Csharp_68pm1_dinhphuhung_0012768\obj\Debug\net10.0-windows\Csharp_68pm1_dinhphuhung_0012768.genruntimeconfig.cache
+C:\Users\Admin\source\repos\Csharp_68pm1_dinhphuhung_0012768\Csharp_68pm1_dinhphuhung_0012768\obj\Debug\net10.0-windows\ref\Csharp_68pm1_dinhphuhung_0012768.dll
