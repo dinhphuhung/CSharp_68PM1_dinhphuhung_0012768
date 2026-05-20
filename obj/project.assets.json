@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Admin\\source\\repos\\Quản Lý Sinh Viên\\Quản Lý Sinh Viên\\Quản Lý Sinh Viên.csproj",
+      "projectUniqueName": "D:\\quanlysinhvien\\Quản Lý Sinh Viên.csproj",
       "projectName": "Quản Lý Sinh Viên",
-      "projectPath": "C:\\Users\\Admin\\source\\repos\\Quản Lý Sinh Viên\\Quản Lý Sinh Viên\\Quản Lý Sinh Viên.csproj",
+      "projectPath": "D:\\quanlysinhvien\\Quản Lý Sinh Viên.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Admin\\source\\repos\\Quản Lý Sinh Viên\\Quản Lý Sinh Viên\\obj\\",
+      "outputPath": "D:\\quanlysinhvien\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

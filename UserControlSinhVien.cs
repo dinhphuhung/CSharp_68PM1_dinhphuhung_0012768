@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace Quản_Lý_Sinh_Viên
 {
-    public partial class Form1 : Form
+    public partial class UserControlSinhVien : UserControl
     {
         private List<SinhVien> dsSinhVien = new List<SinhVien>();
         private List<SinhVien> dsHienThi = new List<SinhVien>();
@@ -14,12 +14,12 @@ namespace Quản_Lý_Sinh_Viên
         private int trangHienTai = 1;
         private int tongSoTrang = 1;
 
-        public Form1()
+        public UserControlSinhVien()
         {
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void UserControlSinhVien_Load(object sender, EventArgs e)
         {
             // ===== NỀN TRẮNG =====
             this.BackColor = System.Drawing.Color.White;
@@ -303,14 +303,6 @@ namespace Quản_Lý_Sinh_Viên
         {
             trangHienTai = tongSoTrang;
             HienThiDuLieu();
-        }
-
-        // ========== MENU ==========
-        private void mnuDangXuat_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("Bạn có chắc muốn đăng xuất?", "Xác nhận",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                Application.Exit();
         }
     }
 }

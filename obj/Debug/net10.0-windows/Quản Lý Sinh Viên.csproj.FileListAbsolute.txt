@@ -1,16 +1,18 @@
-C:\Users\Admin\source\repos\Quản Lý Sinh Viên\Quản Lý Sinh Viên\obj\Debug\net10.0-windows\Quản Lý Sinh Viên.csproj.GenerateResource.cache
-C:\Users\Admin\source\repos\Quản Lý Sinh Viên\Quản Lý Sinh Viên\obj\Debug\net10.0-windows\Quản Lý Sinh Viên.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Admin\source\repos\Quản Lý Sinh Viên\Quản Lý Sinh Viên\obj\Debug\net10.0-windows\Quản Lý Sinh Viên.AssemblyInfoInputs.cache
-C:\Users\Admin\source\repos\Quản Lý Sinh Viên\Quản Lý Sinh Viên\obj\Debug\net10.0-windows\Quản Lý Sinh Viên.AssemblyInfo.cs
-C:\Users\Admin\source\repos\Quản Lý Sinh Viên\Quản Lý Sinh Viên\obj\Debug\net10.0-windows\Quản Lý Sinh Viên.csproj.CoreCompileInputs.cache
-C:\Users\Admin\source\repos\Quản Lý Sinh Viên\Quản Lý Sinh Viên\obj\Debug\net10.0-windows\Quản_Lý_Sinh_Viên.Form1.resources
-C:\Users\Admin\source\repos\Quản Lý Sinh Viên\Quản Lý Sinh Viên\bin\Debug\net10.0-windows\Quản Lý Sinh Viên.exe
-C:\Users\Admin\source\repos\Quản Lý Sinh Viên\Quản Lý Sinh Viên\bin\Debug\net10.0-windows\Quản Lý Sinh Viên.deps.json
-C:\Users\Admin\source\repos\Quản Lý Sinh Viên\Quản Lý Sinh Viên\bin\Debug\net10.0-windows\Quản Lý Sinh Viên.runtimeconfig.json
-C:\Users\Admin\source\repos\Quản Lý Sinh Viên\Quản Lý Sinh Viên\bin\Debug\net10.0-windows\Quản Lý Sinh Viên.dll
-C:\Users\Admin\source\repos\Quản Lý Sinh Viên\Quản Lý Sinh Viên\bin\Debug\net10.0-windows\Quản Lý Sinh Viên.pdb
-C:\Users\Admin\source\repos\Quản Lý Sinh Viên\Quản Lý Sinh Viên\obj\Debug\net10.0-windows\Quản Lý Sinh Viên.dll
-C:\Users\Admin\source\repos\Quản Lý Sinh Viên\Quản Lý Sinh Viên\obj\Debug\net10.0-windows\refint\Quản Lý Sinh Viên.dll
-C:\Users\Admin\source\repos\Quản Lý Sinh Viên\Quản Lý Sinh Viên\obj\Debug\net10.0-windows\Quản Lý Sinh Viên.pdb
-C:\Users\Admin\source\repos\Quản Lý Sinh Viên\Quản Lý Sinh Viên\obj\Debug\net10.0-windows\Quản Lý Sinh Viên.genruntimeconfig.cache
-C:\Users\Admin\source\repos\Quản Lý Sinh Viên\Quản Lý Sinh Viên\obj\Debug\net10.0-windows\ref\Quản Lý Sinh Viên.dll
+D:\quanlysinhvien\bin\Debug\net10.0-windows\Quản Lý Sinh Viên.exe
+D:\quanlysinhvien\bin\Debug\net10.0-windows\Quản Lý Sinh Viên.deps.json
+D:\quanlysinhvien\bin\Debug\net10.0-windows\Quản Lý Sinh Viên.runtimeconfig.json
+D:\quanlysinhvien\bin\Debug\net10.0-windows\Quản Lý Sinh Viên.dll
+D:\quanlysinhvien\bin\Debug\net10.0-windows\Quản Lý Sinh Viên.pdb
+D:\quanlysinhvien\obj\Debug\net10.0-windows\Quản_Lý_Sinh_Viên.FormLogin.resources
+D:\quanlysinhvien\obj\Debug\net10.0-windows\Quản_Lý_Sinh_Viên.FormSinhVien.resources
+D:\quanlysinhvien\obj\Debug\net10.0-windows\Quản Lý Sinh Viên.csproj.GenerateResource.cache
+D:\quanlysinhvien\obj\Debug\net10.0-windows\Quản Lý Sinh Viên.GeneratedMSBuildEditorConfig.editorconfig
+D:\quanlysinhvien\obj\Debug\net10.0-windows\Quản Lý Sinh Viên.AssemblyInfoInputs.cache
+D:\quanlysinhvien\obj\Debug\net10.0-windows\Quản Lý Sinh Viên.AssemblyInfo.cs
+D:\quanlysinhvien\obj\Debug\net10.0-windows\Quản Lý Sinh Viên.csproj.CoreCompileInputs.cache
+D:\quanlysinhvien\obj\Debug\net10.0-windows\Quản Lý Sinh Viên.sourcelink.json
+D:\quanlysinhvien\obj\Debug\net10.0-windows\Quản Lý Sinh Viên.dll
+D:\quanlysinhvien\obj\Debug\net10.0-windows\refint\Quản Lý Sinh Viên.dll
+D:\quanlysinhvien\obj\Debug\net10.0-windows\Quản Lý Sinh Viên.pdb
+D:\quanlysinhvien\obj\Debug\net10.0-windows\Quản Lý Sinh Viên.genruntimeconfig.cache
+D:\quanlysinhvien\obj\Debug\net10.0-windows\ref\Quản Lý Sinh Viên.dll

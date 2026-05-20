@@ -11,12 +11,12 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("Csharp_68pm1_dinhphuhung_0012768")]
-[assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("Quản Lý Sinh Viên")]
+[assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
-[assembly: System.Reflection.AssemblyProductAttribute("Csharp_68pm1_dinhphuhung_0012768")]
-[assembly: System.Reflection.AssemblyTitleAttribute("Csharp_68pm1_dinhphuhung_0012768")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7a212ed01a0ead07e8682e379b34905e2384f24a")]
+[assembly: System.Reflection.AssemblyProductAttribute("Quản Lý Sinh Viên")]
+[assembly: System.Reflection.AssemblyTitleAttribute("Quản Lý Sinh Viên")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 [assembly: System.Runtime.Versioning.TargetPlatformAttribute("Windows7.0")]
 [assembly: System.Runtime.Versioning.SupportedOSPlatformAttribute("Windows7.0")]
