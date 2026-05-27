@@ -68,52 +68,31 @@ namespace Quản_Lý_Sinh_Viên
             btnTim.FlatStyle = FlatStyle.Flat;
             btnTim.FlatAppearance.BorderSize = 0;
 
-            // ===== KHỞI TẠO DỮ LIỆU =====
-            KhoiTaoDuLieuMau();
+            // ===== KHỞI TẠO =====
             CaiDatDataGridView();
-            LoadDuLieuLop();
-            dsHienThi = new List<SinhVien>(dsSinhVien);
+            LoadDuLieuTuSQL();
             HienThiDuLieu();
             LamMoiForm();
         }
 
-        // ========== DỮ LIỆU MẪU ==========
-        private void KhoiTaoDuLieuMau()
+        // ========== LẤY DỮ LIỆU TỪ SQL ==========
+        private void LoadDuLieuTuSQL()
         {
-            dsLop.Add(new LopHoc { MaLop = "68PM1", TenLop = "Lớp 68PM1" });
-            dsLop.Add(new LopHoc { MaLop = "68PM2", TenLop = "Lớp 68PM2" });
+            try
+            {
+                dsLop = DatabaseConnection.GetAllLopHoc();
+                dsSinhVien = DatabaseConnection.GetAllSinhVien();
+                dsHienThi = new List<SinhVien>(dsSinhVien);
 
-            dsSinhVien.Add(new SinhVien
+                cboLop.DataSource = new List<LopHoc>(dsLop);
+                cboLop.DisplayMember = "TenLop";
+                cboLop.ValueMember = "MaLop";
+            }
+            catch (Exception ex)
             {
-                MaSV = 1,
-                HoTen = "hieu",
-                GioiTinh = "Nam",
-                NgaySinh = new DateTime(2026, 3, 11),
-                Lop = "68PM1"
-            });
-            dsSinhVien.Add(new SinhVien
-            {
-                MaSV = 2,
-                HoTen = "Nguyễn Văn B",
-                GioiTinh = "Nam",
-                NgaySinh = new DateTime(2026, 3, 11),
-                Lop = "68PM2"
-            });
-            dsSinhVien.Add(new SinhVien
-            {
-                MaSV = 3,
-                HoTen = "Trần Văn C",
-                GioiTinh = "Nam",
-                NgaySinh = new DateTime(2026, 3, 21),
-                Lop = "68PM2"
-            });
-        }
-
-        private void LoadDuLieuLop()
-        {
-            cboLop.DataSource = new List<LopHoc>(dsLop);
-            cboLop.DisplayMember = "ToString";
-            cboLop.ValueMember = "MaLop";
+                MessageBox.Show("Lỗi kết nối SQL: " + ex.Message, "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         // ========== CÀI ĐẶT DATAGRIDVIEW ==========
@@ -158,14 +137,10 @@ namespace Quản_Lý_Sinh_Viên
         // ========== TÌM KIẾM ==========
         private void TimKiem()
         {
-            string keyword = txtTimKiem.Text.Trim().ToLower();
+            string keyword = txtTimKiem.Text.Trim();
             dsHienThi = string.IsNullOrEmpty(keyword)
                 ? new List<SinhVien>(dsSinhVien)
-                : dsSinhVien.Where(sv =>
-                    sv.HoTen.ToLower().Contains(keyword) ||
-                    sv.MaSV.ToString().Contains(keyword) ||
-                    sv.Lop.ToLower().Contains(keyword)).ToList();
-
+                : DatabaseConnection.SearchSinhVien(keyword);
             trangHienTai = 1;
             HienThiDuLieu();
         }
@@ -216,19 +191,26 @@ namespace Quản_Lý_Sinh_Viên
                 return;
             }
 
-            dsSinhVien.Add(new SinhVien
+            var sv = new SinhVien
             {
                 MaSV = maSV,
                 HoTen = txtHoTen.Text.Trim(),
                 GioiTinh = cboGioiTinh.SelectedItem?.ToString() ?? "Nam",
                 NgaySinh = dtpNgaySinh.Value,
                 Lop = cboLop.SelectedValue?.ToString() ?? ""
-            });
+            };
 
-            TimKiem();
-            LamMoiForm();
-            MessageBox.Show("Thêm thành công!", "Thông báo",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (DatabaseConnection.AddSinhVien(sv))
+            {
+                dsSinhVien.Add(sv);
+                TimKiem();
+                LamMoiForm();
+                MessageBox.Show("Thêm thành công!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+                MessageBox.Show("Thêm thất bại!", "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void btnSua_Click(object sender, EventArgs e)
@@ -247,9 +229,15 @@ namespace Quản_Lý_Sinh_Viên
             sv.NgaySinh = dtpNgaySinh.Value;
             sv.Lop = cboLop.SelectedValue?.ToString() ?? "";
 
-            TimKiem();
-            MessageBox.Show("Sửa thành công!", "Thông báo",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (DatabaseConnection.UpdateSinhVien(sv))
+            {
+                TimKiem();
+                MessageBox.Show("Sửa thành công!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+                MessageBox.Show("Sửa thất bại!", "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void btnXoa_Click(object sender, EventArgs e)
@@ -261,9 +249,17 @@ namespace Quản_Lý_Sinh_Viên
             if (MessageBox.Show($"Xóa sinh viên '{sv.HoTen}'?", "Xác nhận",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                dsSinhVien.Remove(sv);
-                TimKiem();
-                LamMoiForm();
+                if (DatabaseConnection.DeleteSinhVien(maSV))
+                {
+                    dsSinhVien.Remove(sv);
+                    TimKiem();
+                    LamMoiForm();
+                    MessageBox.Show("Xóa thành công!", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                    MessageBox.Show("Xóa thất bại!", "Lỗi",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

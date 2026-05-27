@@ -9,7 +9,6 @@ namespace Quản_Lý_Sinh_Viên
     {
         private List<LopHoc> dsLop = new List<LopHoc>();
         private List<LopHoc> dsHienThi = new List<LopHoc>();
-        private Dictionary<string, string> dsGhiChu = new Dictionary<string, string>();
         private int soDoiTuongMoiTrang = 10;
         private int trangHienTai = 1;
         private int tongSoTrang = 1;
@@ -69,22 +68,18 @@ namespace Quản_Lý_Sinh_Viên
             btnXemDanhSach.FlatStyle = FlatStyle.Flat;
             btnXemDanhSach.FlatAppearance.BorderSize = 0;
 
-            // ===== KHỞI TẠO DỮ LIỆU =====
-            KhoiTaoDuLieuMau();
+            // ===== KHỞI TẠO =====
             CaiDatDataGridView();
-            dsHienThi = new List<LopHoc>(dsLop);
+            LoadDuLieuTuSQL();
             HienThiDuLieu();
             LamMoiForm();
         }
 
-        // ========== DỮ LIỆU MẪU ==========
-        private void KhoiTaoDuLieuMau()
+        // ========== LOAD DỮ LIỆU TỪ SQL ==========
+        private void LoadDuLieuTuSQL()
         {
-            dsLop.Add(new LopHoc { MaLop = "68PM1", TenLop = "Lớp 68PM1" });
-            dsLop.Add(new LopHoc { MaLop = "68PM2", TenLop = "Lớp 68PM2" });
-
-            dsGhiChu["68PM1"] = "abc";
-            dsGhiChu["68PM2"] = "xyz";
+            dsLop = DatabaseConnection.GetAllLopHoc();
+            dsHienThi = new List<LopHoc>(dsLop);
         }
 
         // ========== CÀI ĐẶT DATAGRIDVIEW ==========
@@ -94,13 +89,9 @@ namespace Quản_Lý_Sinh_Viên
             dgvLopHoc.Columns.Clear();
 
             dgvLopHoc.Columns.Add(new DataGridViewTextBoxColumn
-            { HeaderText = "Mã ID", DataPropertyName = "MaLop", Width = 100 });
+            { HeaderText = "Mã lớp", DataPropertyName = "MaLop", Width = 150 });
             dgvLopHoc.Columns.Add(new DataGridViewTextBoxColumn
-            { HeaderText = "Mã lớp", DataPropertyName = "MaLop", Width = 100 });
-            dgvLopHoc.Columns.Add(new DataGridViewTextBoxColumn
-            { HeaderText = "Tên lớp", DataPropertyName = "TenLop", Width = 150 });
-            dgvLopHoc.Columns.Add(new DataGridViewTextBoxColumn
-            { HeaderText = "Ghi chú", Width = 200 });
+            { HeaderText = "Tên lớp", DataPropertyName = "TenLop", Width = 250 });
 
             dgvLopHoc.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvLopHoc.MultiSelect = false;
@@ -119,28 +110,17 @@ namespace Quản_Lý_Sinh_Viên
                 .Take(soDoiTuongMoiTrang)
                 .ToList();
 
-            // Tạo binding source để thêm cột Ghi chú
-            var result = ds.Select(lh => new
-            {
-                MaLop = lh.MaLop,
-                TenLop = lh.TenLop,
-                GhiChu = dsGhiChu.ContainsKey(lh.MaLop) ? dsGhiChu[lh.MaLop] : ""
-            }).ToList();
-
-            dgvLopHoc.DataSource = result;
+            dgvLopHoc.DataSource = ds;
             lblTrang.Text = $"Trang {trangHienTai}/{tongSoTrang}  |  {dsHienThi.Count} bản ghi";
         }
 
         // ========== TÌM KIẾM ==========
         private void TimKiem()
         {
-            string keyword = txtTimKiem.Text.Trim().ToLower();
+            string keyword = txtTimKiem.Text.Trim();
             dsHienThi = string.IsNullOrEmpty(keyword)
                 ? new List<LopHoc>(dsLop)
-                : dsLop.Where(lh =>
-                    lh.MaLop.ToLower().Contains(keyword) ||
-                    lh.TenLop.ToLower().Contains(keyword)).ToList();
-
+                : DatabaseConnection.SearchLopHoc(keyword);
             trangHienTai = 1;
             HienThiDuLieu();
         }
@@ -150,7 +130,6 @@ namespace Quản_Lý_Sinh_Viên
         {
             txtMaLop.Text = "";
             txtTenLop.Text = "";
-            txtGhiChu.Text = "";
             txtMaLop.ReadOnly = false;
             txtMaLop.Focus();
         }
@@ -160,7 +139,6 @@ namespace Quản_Lý_Sinh_Viên
         {
             txtMaLop.Text = lh.MaLop;
             txtTenLop.Text = lh.TenLop;
-            txtGhiChu.Text = dsGhiChu.ContainsKey(lh.MaLop) ? dsGhiChu[lh.MaLop] : "";
             txtMaLop.ReadOnly = true;
         }
 
@@ -174,27 +152,35 @@ namespace Quản_Lý_Sinh_Viên
                     "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
-            if (dsLop.Any(lh => lh.MaLop == txtMaLop.Text))
+            if (dsLop.Any(lh => lh.MaLop == txtMaLop.Text.Trim()))
             {
                 MessageBox.Show("Mã lớp đã tồn tại!", "Lỗi",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            string maLop = txtMaLop.Text.Trim();
-            dsLop.Add(new LopHoc { MaLop = maLop, TenLop = txtTenLop.Text.Trim() });
-            dsGhiChu[maLop] = txtGhiChu.Text.Trim();
+            var lh = new LopHoc
+            {
+                MaLop = txtMaLop.Text.Trim(),
+                TenLop = txtTenLop.Text.Trim()
+            };
 
-            TimKiem();
-            LamMoiForm();
-            MessageBox.Show("Thêm thành công!", "Thông báo",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (DatabaseConnection.AddLopHoc(lh))
+            {
+                LoadDuLieuTuSQL();
+                TimKiem();
+                LamMoiForm();
+                MessageBox.Show("Thêm thành công!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+                MessageBox.Show("Lỗi khi thêm lớp học!", "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void btnSua_Click(object sender, EventArgs e)
         {
-            string maLop = txtMaLop.Text;
+            string maLop = txtMaLop.Text.Trim();
             var lh = dsLop.FirstOrDefault(l => l.MaLop == maLop);
             if (lh == null)
             {
@@ -204,26 +190,39 @@ namespace Quản_Lý_Sinh_Viên
             }
 
             lh.TenLop = txtTenLop.Text.Trim();
-            dsGhiChu[maLop] = txtGhiChu.Text.Trim();
 
-            TimKiem();
-            MessageBox.Show("Sửa thành công!", "Thông báo",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (DatabaseConnection.UpdateLopHoc(lh))
+            {
+                LoadDuLieuTuSQL();
+                TimKiem();
+                MessageBox.Show("Sửa thành công!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+                MessageBox.Show("Lỗi khi sửa lớp học!", "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void btnXoa_Click(object sender, EventArgs e)
         {
-            string maLop = txtMaLop.Text;
+            string maLop = txtMaLop.Text.Trim();
             var lh = dsLop.FirstOrDefault(l => l.MaLop == maLop);
             if (lh == null) return;
 
             if (MessageBox.Show($"Xóa lớp '{lh.TenLop}'?", "Xác nhận",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                dsLop.Remove(lh);
-                if (dsGhiChu.ContainsKey(maLop)) dsGhiChu.Remove(maLop);
-                TimKiem();
-                LamMoiForm();
+                if (DatabaseConnection.DeleteLopHoc(maLop))
+                {
+                    LoadDuLieuTuSQL();
+                    TimKiem();
+                    LamMoiForm();
+                    MessageBox.Show("Xóa thành công!", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                    MessageBox.Show("Lỗi khi xóa lớp học!", "Lỗi",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -232,7 +231,7 @@ namespace Quản_Lý_Sinh_Viên
 
         private void btnXemDanhSach_Click(object sender, EventArgs e)
         {
-            string maLop = txtMaLop.Text;
+            string maLop = txtMaLop.Text.Trim();
             if (string.IsNullOrEmpty(maLop))
             {
                 MessageBox.Show("Vui lòng chọn một lớp!", "Thông báo",
@@ -251,10 +250,9 @@ namespace Quản_Lý_Sinh_Viên
         private void dgvLopHoc_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
-            if (e.RowIndex < dsHienThi.Count)
-                HienThiThongTinLenForm(dsHienThi
-                    .Skip((trangHienTai - 1) * soDoiTuongMoiTrang)
-                    .ToList()[e.RowIndex]);
+            var ds = dgvLopHoc.DataSource as List<LopHoc>;
+            if (ds != null && e.RowIndex < ds.Count)
+                HienThiThongTinLenForm(ds[e.RowIndex]);
         }
 
         // ========== PHÂN TRANG ==========

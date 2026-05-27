@@ -1,8 +1,40 @@
 D:\quanlysinhvien\bin\Debug\net10.0-windows\Quản Lý Sinh Viên.exe
-D:\quanlysinhvien\bin\Debug\net10.0-windows\Quản Lý Sinh Viên.deps.json
-D:\quanlysinhvien\bin\Debug\net10.0-windows\Quản Lý Sinh Viên.runtimeconfig.json
 D:\quanlysinhvien\bin\Debug\net10.0-windows\Quản Lý Sinh Viên.dll
-D:\quanlysinhvien\bin\Debug\net10.0-windows\Quản Lý Sinh Viên.pdb
+D:\quanlysinhvien\bin\Debug\net10.0-windows\Azure.Core.dll
+D:\quanlysinhvien\bin\Debug\net10.0-windows\Azure.Identity.dll
+D:\quanlysinhvien\bin\Debug\net10.0-windows\Microsoft.Bcl.AsyncInterfaces.dll
+D:\quanlysinhvien\bin\Debug\net10.0-windows\Microsoft.Data.SqlClient.dll
+D:\quanlysinhvien\bin\Debug\net10.0-windows\Microsoft.Identity.Client.dll
+D:\quanlysinhvien\bin\Debug\net10.0-windows\Microsoft.Identity.Client.Extensions.Msal.dll
+D:\quanlysinhvien\bin\Debug\net10.0-windows\Microsoft.IdentityModel.Abstractions.dll
+D:\quanlysinhvien\bin\Debug\net10.0-windows\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\quanlysinhvien\bin\Debug\net10.0-windows\Microsoft.IdentityModel.Logging.dll
+D:\quanlysinhvien\bin\Debug\net10.0-windows\Microsoft.IdentityModel.Protocols.dll
+D:\quanlysinhvien\bin\Debug\net10.0-windows\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\quanlysinhvien\bin\Debug\net10.0-windows\Microsoft.IdentityModel.Tokens.dll
+D:\quanlysinhvien\bin\Debug\net10.0-windows\Microsoft.SqlServer.Server.dll
+D:\quanlysinhvien\bin\Debug\net10.0-windows\System.ClientModel.dll
+D:\quanlysinhvien\bin\Debug\net10.0-windows\System.IdentityModel.Tokens.Jwt.dll
+D:\quanlysinhvien\bin\Debug\net10.0-windows\System.Memory.Data.dll
+D:\quanlysinhvien\bin\Debug\net10.0-windows\System.Runtime.Caching.dll
+D:\quanlysinhvien\bin\Debug\net10.0-windows\de\Microsoft.Data.SqlClient.resources.dll
+D:\quanlysinhvien\bin\Debug\net10.0-windows\es\Microsoft.Data.SqlClient.resources.dll
+D:\quanlysinhvien\bin\Debug\net10.0-windows\fr\Microsoft.Data.SqlClient.resources.dll
+D:\quanlysinhvien\bin\Debug\net10.0-windows\it\Microsoft.Data.SqlClient.resources.dll
+D:\quanlysinhvien\bin\Debug\net10.0-windows\ja\Microsoft.Data.SqlClient.resources.dll
+D:\quanlysinhvien\bin\Debug\net10.0-windows\ko\Microsoft.Data.SqlClient.resources.dll
+D:\quanlysinhvien\bin\Debug\net10.0-windows\pt-BR\Microsoft.Data.SqlClient.resources.dll
+D:\quanlysinhvien\bin\Debug\net10.0-windows\ru\Microsoft.Data.SqlClient.resources.dll
+D:\quanlysinhvien\bin\Debug\net10.0-windows\zh-Hans\Microsoft.Data.SqlClient.resources.dll
+D:\quanlysinhvien\bin\Debug\net10.0-windows\zh-Hant\Microsoft.Data.SqlClient.resources.dll
+D:\quanlysinhvien\bin\Debug\net10.0-windows\runtimes\unix\lib\net8.0\Microsoft.Data.SqlClient.dll
+D:\quanlysinhvien\bin\Debug\net10.0-windows\runtimes\win\lib\net8.0\Microsoft.Data.SqlClient.dll
+D:\quanlysinhvien\bin\Debug\net10.0-windows\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+D:\quanlysinhvien\bin\Debug\net10.0-windows\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\quanlysinhvien\bin\Debug\net10.0-windows\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\quanlysinhvien\bin\Debug\net10.0-windows\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+D:\quanlysinhvien\bin\Debug\net10.0-windows\runtimes\win\lib\net8.0\System.Runtime.Caching.dll
+D:\quanlysinhvien\obj\Debug\net10.0-windows\Quản Lý Sinh Viên.csproj.AssemblyReference.cache
 D:\quanlysinhvien\obj\Debug\net10.0-windows\Quản_Lý_Sinh_Viên.FormLogin.resources
 D:\quanlysinhvien\obj\Debug\net10.0-windows\Quản_Lý_Sinh_Viên.FormSinhVien.resources
 D:\quanlysinhvien\obj\Debug\net10.0-windows\Quản Lý Sinh Viên.csproj.GenerateResource.cache
@@ -11,8 +43,13 @@ D:\quanlysinhvien\obj\Debug\net10.0-windows\Quản Lý Sinh Viên.AssemblyInfoIn
 D:\quanlysinhvien\obj\Debug\net10.0-windows\Quản Lý Sinh Viên.AssemblyInfo.cs
 D:\quanlysinhvien\obj\Debug\net10.0-windows\Quản Lý Sinh Viên.csproj.CoreCompileInputs.cache
 D:\quanlysinhvien\obj\Debug\net10.0-windows\Quản Lý Sinh Viên.sourcelink.json
+D:\quanlysinhvien\obj\Debug\net10.0-windows\Qu_n L_ .FF6662DD.Up2Date
 D:\quanlysinhvien\obj\Debug\net10.0-windows\Quản Lý Sinh Viên.dll
 D:\quanlysinhvien\obj\Debug\net10.0-windows\refint\Quản Lý Sinh Viên.dll
 D:\quanlysinhvien\obj\Debug\net10.0-windows\Quản Lý Sinh Viên.pdb
+D:\quanlysinhvien\bin\Debug\net10.0-windows\Quản Lý Sinh Viên.deps.json
+D:\quanlysinhvien\bin\Debug\net10.0-windows\Quản Lý Sinh Viên.runtimeconfig.json
+D:\quanlysinhvien\bin\Debug\net10.0-windows\Quản Lý Sinh Viên.pdb
 D:\quanlysinhvien\obj\Debug\net10.0-windows\Quản Lý Sinh Viên.genruntimeconfig.cache
 D:\quanlysinhvien\obj\Debug\net10.0-windows\ref\Quản Lý Sinh Viên.dll
+D:\quanlysinhvien\bin\Debug\net10.0-windows\Quản Lý Sinh Viên.dll.config
