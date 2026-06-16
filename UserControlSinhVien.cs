@@ -169,7 +169,29 @@ namespace Quản_Lý_Sinh_Viên
                 MessageBox.Show("Sửa thất bại!", "Lỗi",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
-        private void btnXoa_Click(object sender, EventArgs e) { }
+        private void btnXoa_Click(object sender, EventArgs e)
+        {
+            if (!int.TryParse(txtMaSV.Text, out int maSV)) return;
+            var sv = dsSinhVien.FirstOrDefault(s => s.MaSV == maSV);
+            if (sv == null) return;
+
+            if (MessageBox.Show($"Xóa sinh viên '{sv.HoTen}'?", "Xác nhận",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                if (DatabaseConnection.DeleteSinhVien(maSV))
+                {
+                    dsSinhVien.Remove(sv);
+                    dsHienThi.Remove(sv);
+                    HienThiDuLieu();
+                    LamMoiForm();
+                    MessageBox.Show("Xóa thành công!", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                    MessageBox.Show("Xóa thất bại!", "Lỗi",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         private void btnLamMoi_Click(object sender, EventArgs e) => LamMoiForm();
         private void btnTim_Click(object sender, EventArgs e) { }
         private void txtTimKiem_KeyDown(object sender, KeyEventArgs e) { }
