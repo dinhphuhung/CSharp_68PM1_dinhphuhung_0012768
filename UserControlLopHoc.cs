@@ -20,14 +20,12 @@ namespace Quản_Lý_Sinh_Viên
 
         private void UserControlLopHoc_Load(object sender, EventArgs e)
         {
-            // ===== NỀN TRẮNG =====
             this.BackColor = System.Drawing.Color.White;
             dgvLopHoc.BackgroundColor = System.Drawing.Color.White;
             panelTrangTrai.BackColor = System.Drawing.Color.White;
             panelTrangPhai.BackColor = System.Drawing.Color.White;
             lblTrang.BackColor = System.Drawing.Color.White;
 
-            // ===== DATAGRIDVIEW =====
             dgvLopHoc.EnableHeadersVisualStyles = false;
             dgvLopHoc.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.White;
             dgvLopHoc.ColumnHeadersDefaultCellStyle.ForeColor = System.Drawing.Color.Black;
@@ -37,7 +35,6 @@ namespace Quản_Lý_Sinh_Viên
             dgvLopHoc.DefaultCellStyle.ForeColor = System.Drawing.Color.Black;
             dgvLopHoc.AlternatingRowsDefaultCellStyle.BackColor = System.Drawing.Color.White;
 
-            // ===== MÀU BUTTON =====
             btnThem.BackColor = System.Drawing.Color.FromArgb(30, 144, 255);
             btnThem.ForeColor = System.Drawing.Color.White;
             btnThem.FlatStyle = FlatStyle.Flat;
@@ -68,64 +65,39 @@ namespace Quản_Lý_Sinh_Viên
             btnXemDanhSach.FlatStyle = FlatStyle.Flat;
             btnXemDanhSach.FlatAppearance.BorderSize = 0;
 
-            // ===== KHỞI TẠO =====
             CaiDatDataGridView();
             LoadDuLieuTuSQL();
             HienThiDuLieu();
             LamMoiForm();
         }
 
-        // ========== LOAD DỮ LIỆU TỪ SQL ==========
         private void LoadDuLieuTuSQL()
         {
             dsLop = DatabaseConnection.GetAllLopHoc();
             dsHienThi = new List<LopHoc>(dsLop);
         }
 
-        // ========== CÀI ĐẶT DATAGRIDVIEW ==========
         private void CaiDatDataGridView()
         {
             dgvLopHoc.AutoGenerateColumns = false;
             dgvLopHoc.Columns.Clear();
-
-            dgvLopHoc.Columns.Add(new DataGridViewTextBoxColumn
-            { HeaderText = "Mã lớp", DataPropertyName = "MaLop", Width = 150 });
-            dgvLopHoc.Columns.Add(new DataGridViewTextBoxColumn
-            { HeaderText = "Tên lớp", DataPropertyName = "TenLop", Width = 250 });
-
+            dgvLopHoc.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Mã lớp", DataPropertyName = "MaLop", Width = 150 });
+            dgvLopHoc.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Tên lớp", DataPropertyName = "TenLop", Width = 250 });
             dgvLopHoc.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvLopHoc.MultiSelect = false;
             dgvLopHoc.ReadOnly = true;
         }
 
-        // ========== HIỂN THỊ DỮ LIỆU ==========
         private void HienThiDuLieu()
         {
             tongSoTrang = (int)Math.Ceiling((double)dsHienThi.Count / soDoiTuongMoiTrang);
             if (tongSoTrang == 0) tongSoTrang = 1;
             if (trangHienTai > tongSoTrang) trangHienTai = tongSoTrang;
-
-            var ds = dsHienThi
-                .Skip((trangHienTai - 1) * soDoiTuongMoiTrang)
-                .Take(soDoiTuongMoiTrang)
-                .ToList();
-
+            var ds = dsHienThi.Skip((trangHienTai - 1) * soDoiTuongMoiTrang).Take(soDoiTuongMoiTrang).ToList();
             dgvLopHoc.DataSource = ds;
             lblTrang.Text = $"Trang {trangHienTai}/{tongSoTrang}  |  {dsHienThi.Count} bản ghi";
         }
 
-        // ========== TÌM KIẾM ==========
-        private void TimKiem()
-        {
-            string keyword = txtTimKiem.Text.Trim();
-            dsHienThi = string.IsNullOrEmpty(keyword)
-                ? new List<LopHoc>(dsLop)
-                : DatabaseConnection.SearchLopHoc(keyword);
-            trangHienTai = 1;
-            HienThiDuLieu();
-        }
-
-        // ========== LÀM MỚI FORM ==========
         private void LamMoiForm()
         {
             txtMaLop.Text = "";
@@ -134,7 +106,6 @@ namespace Quản_Lý_Sinh_Viên
             txtMaLop.Focus();
         }
 
-        // ========== HIỂN THỊ LÊN FORM ==========
         private void HienThiThongTinLenForm(LopHoc lh)
         {
             txtMaLop.Text = lh.MaLop;
@@ -142,111 +113,7 @@ namespace Quản_Lý_Sinh_Viên
             txtMaLop.ReadOnly = true;
         }
 
-        // ========== SỰ KIỆN BUTTON ==========
-        private void btnThem_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txtMaLop.Text) ||
-                string.IsNullOrWhiteSpace(txtTenLop.Text))
-            {
-                MessageBox.Show("Vui lòng nhập đầy đủ Mã lớp và Tên lớp!",
-                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            if (dsLop.Any(lh => lh.MaLop == txtMaLop.Text.Trim()))
-            {
-                MessageBox.Show("Mã lớp đã tồn tại!", "Lỗi",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            var lh = new LopHoc
-            {
-                MaLop = txtMaLop.Text.Trim(),
-                TenLop = txtTenLop.Text.Trim()
-            };
-
-            if (DatabaseConnection.AddLopHoc(lh))
-            {
-                LoadDuLieuTuSQL();
-                TimKiem();
-                LamMoiForm();
-                MessageBox.Show("Thêm thành công!", "Thông báo",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-                MessageBox.Show("Lỗi khi thêm lớp học!", "Lỗi",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
-
-        private void btnSua_Click(object sender, EventArgs e)
-        {
-            string maLop = txtMaLop.Text.Trim();
-            var lh = dsLop.FirstOrDefault(l => l.MaLop == maLop);
-            if (lh == null)
-            {
-                MessageBox.Show("Không tìm thấy lớp học!", "Lỗi",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            lh.TenLop = txtTenLop.Text.Trim();
-
-            if (DatabaseConnection.UpdateLopHoc(lh))
-            {
-                LoadDuLieuTuSQL();
-                TimKiem();
-                MessageBox.Show("Sửa thành công!", "Thông báo",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-                MessageBox.Show("Lỗi khi sửa lớp học!", "Lỗi",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
-
-        private void btnXoa_Click(object sender, EventArgs e)
-        {
-            string maLop = txtMaLop.Text.Trim();
-            var lh = dsLop.FirstOrDefault(l => l.MaLop == maLop);
-            if (lh == null) return;
-
-            if (MessageBox.Show($"Xóa lớp '{lh.TenLop}'?", "Xác nhận",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            {
-                if (DatabaseConnection.DeleteLopHoc(maLop))
-                {
-                    LoadDuLieuTuSQL();
-                    TimKiem();
-                    LamMoiForm();
-                    MessageBox.Show("Xóa thành công!", "Thông báo",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                    MessageBox.Show("Lỗi khi xóa lớp học!", "Lỗi",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void btnLamMoi_Click(object sender, EventArgs e) => LamMoiForm();
-        private void btnTim_Click(object sender, EventArgs e) => TimKiem();
-
-        private void btnXemDanhSach_Click(object sender, EventArgs e)
-        {
-            string maLop = txtMaLop.Text.Trim();
-            if (string.IsNullOrEmpty(maLop))
-            {
-                MessageBox.Show("Vui lòng chọn một lớp!", "Thông báo",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-            MessageBox.Show($"Xem danh sách sinh viên của lớp {maLop}", "Thông báo",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void txtTimKiem_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter) TimKiem();
-        }
-
+        // ========== CELL CLICK ==========
         private void dgvLopHoc_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
@@ -255,27 +122,16 @@ namespace Quản_Lý_Sinh_Viên
                 HienThiThongTinLenForm(ds[e.RowIndex]);
         }
 
-        // ========== PHÂN TRANG ==========
-        private void btnDauTrang_Click(object sender, EventArgs e)
-        {
-            trangHienTai = 1;
-            HienThiDuLieu();
-        }
-
-        private void btnTruoc_Click(object sender, EventArgs e)
-        {
-            if (trangHienTai > 1) { trangHienTai--; HienThiDuLieu(); }
-        }
-
-        private void btnSau_Click(object sender, EventArgs e)
-        {
-            if (trangHienTai < tongSoTrang) { trangHienTai++; HienThiDuLieu(); }
-        }
-
-        private void btnCuoiTrang_Click(object sender, EventArgs e)
-        {
-            trangHienTai = tongSoTrang;
-            HienThiDuLieu();
-        }
+        private void btnThem_Click(object sender, EventArgs e) { }
+        private void btnSua_Click(object sender, EventArgs e) { }
+        private void btnXoa_Click(object sender, EventArgs e) { }
+        private void btnLamMoi_Click(object sender, EventArgs e) => LamMoiForm();
+        private void btnTim_Click(object sender, EventArgs e) { }
+        private void btnXemDanhSach_Click(object sender, EventArgs e) { }
+        private void txtTimKiem_KeyDown(object sender, KeyEventArgs e) { }
+        private void btnDauTrang_Click(object sender, EventArgs e) { trangHienTai = 1; HienThiDuLieu(); }
+        private void btnTruoc_Click(object sender, EventArgs e) { if (trangHienTai > 1) { trangHienTai--; HienThiDuLieu(); } }
+        private void btnSau_Click(object sender, EventArgs e) { if (trangHienTai < tongSoTrang) { trangHienTai++; HienThiDuLieu(); } }
+        private void btnCuoiTrang_Click(object sender, EventArgs e) { trangHienTai = tongSoTrang; HienThiDuLieu(); }
     }
 }
