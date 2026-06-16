@@ -223,5 +223,31 @@ namespace Quản_Lý_Sinh_Viên
             }
             return list;
         }
+        // ========== LẤY SINH VIÊN THEO LỚP ==========
+        public static List<SinhVien> GetSinhVienByLop(string maLop)
+        {
+            List<SinhVien> list = new List<SinhVien>();
+            using (SqlConnection conn = GetConnection())
+            {
+                conn.Open();
+                string query = "SELECT [id],[hoten],[gioitinh],[ngaysinh],[malop] FROM [dbo].[tbl_sinhviens] WHERE [malop]=@malop";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@malop", maLop);
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    list.Add(new SinhVien
+                    {
+                        MaSV = Convert.ToInt32(reader["id"]),
+                        HoTen = reader["hoten"].ToString()!,
+                        GioiTinh = reader["gioitinh"].ToString()!,
+                        NgaySinh = Convert.ToDateTime(reader["ngaysinh"]),
+                        Lop = reader["malop"].ToString()!
+                    });
+                }
+                reader.Close();
+            }
+            return list;
+        }
     }
 }

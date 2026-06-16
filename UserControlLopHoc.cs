@@ -122,13 +122,122 @@ namespace Quản_Lý_Sinh_Viên
                 HienThiThongTinLenForm(ds[e.RowIndex]);
         }
 
-        private void btnThem_Click(object sender, EventArgs e) { }
-        private void btnSua_Click(object sender, EventArgs e) { }
-        private void btnXoa_Click(object sender, EventArgs e) { }
+        private void btnThem_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtMaLop.Text) ||
+                string.IsNullOrWhiteSpace(txtTenLop.Text))
+            {
+                MessageBox.Show("Vui lòng nhập đầy đủ Mã lớp và Tên lớp!",
+                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (dsLop.Any(lh => lh.MaLop == txtMaLop.Text.Trim()))
+            {
+                MessageBox.Show("Mã lớp đã tồn tại!", "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            var lh = new LopHoc
+            {
+                MaLop = txtMaLop.Text.Trim(),
+                TenLop = txtTenLop.Text.Trim()
+            };
+            if (DatabaseConnection.AddLopHoc(lh))
+            {
+                LoadDuLieuTuSQL();
+                TimKiem();
+                LamMoiForm();
+                MessageBox.Show("Thêm thành công!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+                MessageBox.Show("Lỗi khi thêm lớp học!", "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void btnSua_Click(object sender, EventArgs e)
+        {
+            string maLop = txtMaLop.Text.Trim();
+            var lh = dsLop.FirstOrDefault(l => l.MaLop == maLop);
+            if (lh == null)
+            {
+                MessageBox.Show("Không tìm thấy lớp học!", "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            lh.TenLop = txtTenLop.Text.Trim();
+            if (DatabaseConnection.UpdateLopHoc(lh))
+            {
+                LoadDuLieuTuSQL();
+                TimKiem();
+                MessageBox.Show("Sửa thành công!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+                MessageBox.Show("Lỗi khi sửa lớp học!", "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void btnXoa_Click(object sender, EventArgs e)
+        {
+            string maLop = txtMaLop.Text.Trim();
+            var lh = dsLop.FirstOrDefault(l => l.MaLop == maLop);
+            if (lh == null) return;
+            if (MessageBox.Show($"Xóa lớp '{lh.TenLop}'?", "Xác nhận",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                if (DatabaseConnection.DeleteLopHoc(maLop))
+                {
+                    LoadDuLieuTuSQL();
+                    TimKiem();
+                    LamMoiForm();
+                    MessageBox.Show("Xóa thành công!", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                    MessageBox.Show("Lỗi khi xóa lớp học!", "Lỗi",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void TimKiem()
+        {
+            string keyword = txtTimKiem.Text.Trim();
+            dsHienThi = string.IsNullOrEmpty(keyword)
+                ? new List<LopHoc>(dsLop)
+                : DatabaseConnection.SearchLopHoc(keyword);
+            trangHienTai = 1;
+            HienThiDuLieu();
+        }
+
         private void btnLamMoi_Click(object sender, EventArgs e) => LamMoiForm();
-        private void btnTim_Click(object sender, EventArgs e) { }
-        private void btnXemDanhSach_Click(object sender, EventArgs e) { }
-        private void txtTimKiem_KeyDown(object sender, KeyEventArgs e) { }
+        private void btnTim_Click(object sender, EventArgs e) => TimKiem();
+
+        private void btnXemDanhSach_Click(object sender, EventArgs e)
+        {
+            string maLop = txtMaLop.Text.Trim();
+            if (string.IsNullOrEmpty(maLop))
+            {
+                MessageBox.Show("Vui lòng chọn một lớp!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            var dsSV = DatabaseConnection.GetSinhVienByLop(maLop);
+            string tenLop = txtTenLop.Text.Trim();
+            string thongBao = $"Danh sách sinh viên lớp {tenLop}:\n\n";
+            if (dsSV.Count == 0)
+                thongBao += "Không có sinh viên nào.";
+            else
+                foreach (var sv in dsSV)
+                    thongBao += $"- {sv.MaSV}: {sv.HoTen}\n";
+            MessageBox.Show(thongBao, "Danh sách sinh viên",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void txtTimKiem_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter) TimKiem();
+        }
         private void btnDauTrang_Click(object sender, EventArgs e) { trangHienTai = 1; HienThiDuLieu(); }
         private void btnTruoc_Click(object sender, EventArgs e) { if (trangHienTai > 1) { trangHienTai--; HienThiDuLieu(); } }
         private void btnSau_Click(object sender, EventArgs e) { if (trangHienTai < tongSoTrang) { trangHienTai++; HienThiDuLieu(); } }
