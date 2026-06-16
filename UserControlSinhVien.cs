@@ -142,7 +142,47 @@ namespace Quản_Lý_Sinh_Viên
                 HienThiThongTinLenForm(ds[e.RowIndex]);
         }
 
-        private void btnThem_Click(object sender, EventArgs e) { }
+        private void btnThem_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtMaSV.Text) ||
+                string.IsNullOrWhiteSpace(txtHoTen.Text))
+            {
+                MessageBox.Show("Vui lòng nhập đầy đủ Mã SV và Họ tên!",
+                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (!int.TryParse(txtMaSV.Text, out int maSV))
+            {
+                MessageBox.Show("Mã SV phải là số!", "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (dsSinhVien.Any(sv => sv.MaSV == maSV))
+            {
+                MessageBox.Show("Mã SV đã tồn tại!", "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            var sv = new SinhVien
+            {
+                MaSV = maSV,
+                HoTen = txtHoTen.Text.Trim(),
+                GioiTinh = cboGioiTinh.SelectedItem?.ToString() ?? "Nam",
+                NgaySinh = dtpNgaySinh.Value,
+                Lop = cboLop.SelectedValue?.ToString() ?? ""
+            };
+            if (DatabaseConnection.AddSinhVien(sv))
+            {
+                dsSinhVien.Add(sv);
+                TimKiem();
+                LamMoiForm();
+                MessageBox.Show("Thêm thành công!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+                MessageBox.Show("Thêm thất bại!", "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
         private void btnSua_Click(object sender, EventArgs e)
         {
             if (!int.TryParse(txtMaSV.Text, out int maSV)) return;
@@ -153,12 +193,10 @@ namespace Quản_Lý_Sinh_Viên
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
             sv.HoTen = txtHoTen.Text.Trim();
             sv.GioiTinh = cboGioiTinh.SelectedItem?.ToString() ?? "Nam";
             sv.NgaySinh = dtpNgaySinh.Value;
             sv.Lop = cboLop.SelectedValue?.ToString() ?? "";
-
             if (DatabaseConnection.UpdateSinhVien(sv))
             {
                 HienThiDuLieu();
@@ -174,7 +212,6 @@ namespace Quản_Lý_Sinh_Viên
             if (!int.TryParse(txtMaSV.Text, out int maSV)) return;
             var sv = dsSinhVien.FirstOrDefault(s => s.MaSV == maSV);
             if (sv == null) return;
-
             if (MessageBox.Show($"Xóa sinh viên '{sv.HoTen}'?", "Xác nhận",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
@@ -192,9 +229,21 @@ namespace Quản_Lý_Sinh_Viên
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private void TimKiem()
+        {
+            string keyword = txtTimKiem.Text.Trim();
+            dsHienThi = string.IsNullOrEmpty(keyword)
+                ? new List<SinhVien>(dsSinhVien)
+                : DatabaseConnection.SearchSinhVien(keyword);
+            trangHienTai = 1;
+            HienThiDuLieu();
+        }
         private void btnLamMoi_Click(object sender, EventArgs e) => LamMoiForm();
-        private void btnTim_Click(object sender, EventArgs e) { }
-        private void txtTimKiem_KeyDown(object sender, KeyEventArgs e) { }
+        private void btnTim_Click(object sender, EventArgs e) => TimKiem();
+        private void txtTimKiem_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter) TimKiem();
+        }
         private void btnDauTrang_Click(object sender, EventArgs e) { trangHienTai = 1; HienThiDuLieu(); }
         private void btnTruoc_Click(object sender, EventArgs e) { if (trangHienTai > 1) { trangHienTai--; HienThiDuLieu(); } }
         private void btnSau_Click(object sender, EventArgs e) { if (trangHienTai < tongSoTrang) { trangHienTai++; HienThiDuLieu(); } }
