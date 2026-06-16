@@ -134,7 +134,7 @@ namespace Quản_Lý_Sinh_Viên
             txtMaSV.ReadOnly = true;
         }
 
-        // ========== CELL CLICK ==========
+        
         private void dgvSinhVien_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
@@ -143,7 +143,32 @@ namespace Quản_Lý_Sinh_Viên
         }
 
         private void btnThem_Click(object sender, EventArgs e) { }
-        private void btnSua_Click(object sender, EventArgs e) { }
+        private void btnSua_Click(object sender, EventArgs e)
+        {
+            if (!int.TryParse(txtMaSV.Text, out int maSV)) return;
+            var sv = dsSinhVien.FirstOrDefault(s => s.MaSV == maSV);
+            if (sv == null)
+            {
+                MessageBox.Show("Không tìm thấy sinh viên!", "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            sv.HoTen = txtHoTen.Text.Trim();
+            sv.GioiTinh = cboGioiTinh.SelectedItem?.ToString() ?? "Nam";
+            sv.NgaySinh = dtpNgaySinh.Value;
+            sv.Lop = cboLop.SelectedValue?.ToString() ?? "";
+
+            if (DatabaseConnection.UpdateSinhVien(sv))
+            {
+                HienThiDuLieu();
+                MessageBox.Show("Sửa thành công!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+                MessageBox.Show("Sửa thất bại!", "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
         private void btnXoa_Click(object sender, EventArgs e) { }
         private void btnLamMoi_Click(object sender, EventArgs e) => LamMoiForm();
         private void btnTim_Click(object sender, EventArgs e) { }
